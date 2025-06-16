@@ -16,6 +16,9 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@spartan-ng/helm/spinner": [
+        ".\\src/app/components/ui/ui-spinner-helm/src/index.ts"
       ]
     }
   },

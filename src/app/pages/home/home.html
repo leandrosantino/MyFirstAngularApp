@@ -3,7 +3,7 @@
 <p> Username: {{userProfile?.displayName}}</p>
 <hlm-avatar variant="large">
   <img [src]="userProfile?.profilePictureUrl" alt="spartan logo. Resembling a spartanic shield" hlmAvatarImage />
-  <span class="bg-[#FD005B] text-white" hlmAvatarFallback>
+  <span class="bg-zinc-300 text-zinc-900" hlmAvatarFallback>
     {{userProfile?.displayName?.slice(0, 2)?.toUpperCase()}}
   </span>
 </hlm-avatar>

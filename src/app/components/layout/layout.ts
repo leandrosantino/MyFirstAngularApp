@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../service/auth';
+import { HlmSpinnerComponent } from '../ui/ui-spinner-helm/src';
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, HlmSpinnerComponent],
   templateUrl: './layout.html',
 })
 export class Layout implements OnInit {

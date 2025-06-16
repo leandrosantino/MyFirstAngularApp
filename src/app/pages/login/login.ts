@@ -1,10 +1,12 @@
+import { HlmButtonDirective } from '@/app/components/ui/ui-button-helm/src';
+import { HlmInputDirective } from '@/app/components/ui/ui-input-helm/src';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../service/auth';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [HlmButtonDirective, HlmInputDirective],
   templateUrl: './login.html',
 })
 export class Login {
