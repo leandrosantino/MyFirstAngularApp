@@ -16,7 +16,7 @@ export class Login {
 
   async login() {
     this.authService.login(
-      'johndoe',
+      'johndoe@gmail.com',
       '123456'
     ).subscribe({
       complete: () => this.router.navigate(['']),

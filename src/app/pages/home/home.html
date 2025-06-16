@@ -1,4 +1,13 @@
 <div>Home Page</div>
 
-<p> as a s asas {{userProfile?.displayName}}</p>
-<button (click)="logout()">Sair</button>
+<p> Username: {{userProfile?.displayName}}</p>
+<hlm-avatar variant="large">
+  <img [src]="userProfile?.profilePictureUrl" alt="spartan logo. Resembling a spartanic shield" hlmAvatarImage />
+  <span class="bg-[#FD005B] text-white" hlmAvatarFallback>
+    {{userProfile?.displayName?.slice(0, 2)?.toUpperCase()}}
+  </span>
+</hlm-avatar>
+
+
+<button hlmBtn (click)="logout()">Sair</button>
+
