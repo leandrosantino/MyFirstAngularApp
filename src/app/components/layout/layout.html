@@ -1,0 +1,14 @@
+<main class="main">
+  <div class="bg-zinc-50 w-[400px] h-[400px] rounded-md p-4">
+    @if(isLoading){ 
+      <section class="w-full h-full flex justify-center items-center gap-4" >
+        <span>Loading... </span>
+        <span 
+          class="w-8 h-8 border-4 border-zinc-200 border-t-zinc-900 rounded-full flex justify-center items-center pb-1 animate-spin" 
+        ></span>
+      </section>
+    } @else {
+      <router-outlet />
+    }
+  </div>
+</main>
