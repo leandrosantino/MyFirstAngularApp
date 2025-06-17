@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { switchMap, tap } from 'rxjs';
+import { catchError, EMPTY, switchMap, tap } from 'rxjs';
 
 export type UserProfile = {
   id: string,
@@ -43,8 +43,13 @@ export class AuthService {
   restoreSession() {
     return this.httpClient.get<{ accessToken: string }>('/auth/refresh').pipe(
       tap(({ accessToken }) => this.$token = accessToken),
+      tap(console.log),
       switchMap(() => this.httpClient.get<typeof this.userProfile>("/user/profile")),
-      tap(userProfile => { this.userProfile = userProfile })
+      tap(userProfile => { this.userProfile = userProfile }),
+      catchError(a => {
+        console.log(a)
+        return EMPTY
+      })
     )
   }
 
@@ -55,7 +60,7 @@ export class AuthService {
   logout() {
     this.$token = ''
     this.httpClient.post('/auth/logout', {}).subscribe(() => {
-      this.router.navigate(['/login'])
+      this.router.navigate(['/auth/login']);
     })
   }
 

@@ -1,12 +1,17 @@
-<main class="main">
-  <div class="bg-zinc-50 w-[400px] h-[400px] rounded-md p-4">
-    @if(isLoading){ 
-      <section class="w-full h-full flex justify-center items-center gap-4" >
-        <span>Loading... </span>
-        <hlm-spinner />
-      </section>
-    } @else {
-      <router-outlet />
-    }
-  </div>
-</main>
+@if(isLoading){
+  <main class="w-screen h-screen flex justify-center items-center" >
+    <section class="w-full h-full flex justify-center items-center gap-4" >
+      <span>Loading... </span>
+      <hlm-spinner />
+    </section>
+  </main>
+} @else {
+  <main class="main">
+    <aside>
+  
+    </aside>
+    <section>
+      <ng-content />
+    </section>
+  </main>
+}

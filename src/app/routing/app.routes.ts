@@ -14,10 +14,15 @@ export const routes: Routes = [
         component: Home,
         canActivate: [AuthGuard],
       },
+    ]
+  },
+  {
+    path: "auth",
+    children: [
       {
-        path: "login",
+        path: 'login',
         component: Login
       }
     ]
-  },
+  }
 ];
