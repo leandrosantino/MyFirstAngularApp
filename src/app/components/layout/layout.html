@@ -1,11 +1,14 @@
-<main class="main">
-  <aside [attr.data-open]="open()" >
+<main class="main transition-[left,right,width] ease-linear" [attr.data-open]="open()">
+  <aside>
     
   </aside>
   <section>
     <header>
-      <button hlmBtn toggleSidebar [variant]="'ghost'" [size]="'icon'" >To</button>
-      <h1>HomePage</h1>
+      <button hlmBtn toggleSidebar [variant]="'ghost'" [size]="'icon'" >
+        <lucide-icon [size]="16" [strokeWidth]="(2.25)" [img]="PanelLeftIcon" />
+      </button>
+      <div data-orientation="vertical" role="none" class="shrink-0 bg-border w-[1px] mr-2 h-4"></div>
+      <h1>Ordens de Serviço</h1>
     </header>
     <main>
       <router-outlet />

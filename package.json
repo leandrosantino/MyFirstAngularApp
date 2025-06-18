@@ -22,6 +22,7 @@
     "@tailwindcss/postcss": "^4.1.10",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "lucide-angular": "^0.517.0",
     "postcss": "^8.5.5",
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.1.10",

@@ -7,13 +7,16 @@
 @layer base {
 
   * {
-    font-family: "Roboto", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-weight: 300;
+    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: 400;
     color: var(--color-foreground);
   }
 
   body {
     background-color: var(--color-background);
+  }
+  button {
+    cursor: pointer;
   }
   
 }
