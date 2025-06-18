@@ -1,17 +1,15 @@
-@if(isLoading){
-  <main class="w-screen h-screen flex justify-center items-center" >
-    <section class="w-full h-full flex justify-center items-center gap-4" >
-      <span>Loading... </span>
-      <hlm-spinner />
-    </section>
-  </main>
-} @else {
-  <main class="main">
-    <aside>
-  
-    </aside>
-    <section>
-      <ng-content />
-    </section>
-  </main>
-}
+<main class="main">
+  <aside [attr.data-open]="open()" >
+    
+  </aside>
+  <section>
+    <header>
+      <button hlmBtn toggleSidebar [variant]="'ghost'" [size]="'icon'" >To</button>
+      <h1>HomePage</h1>
+    </header>
+    <main>
+      <router-outlet />
+    </main>
+  </section>
+</main>
+

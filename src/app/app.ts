@@ -1,20 +1,20 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { Layout } from './components/layout/layout';
+import { Loading } from './components/loading/loading';
 import { AuthService } from './service/auth';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Layout],
+  imports: [CommonModule, RouterOutlet, Loading],
   template: `
-    <app-layout [isLoading]="isLoading" >
-      <router-outlet />
-    </app-layout>
+    <app-loading *ngIf="isLoading" />
+    <router-outlet *ngIf="!isLoading" />
   `
 })
 export class App  implements OnInit{ 
 
-  isLoading = false
+  isLoading = true
 
   constructor(
     private readonly authService: AuthService,
