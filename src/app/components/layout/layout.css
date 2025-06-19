@@ -91,7 +91,7 @@
 		}
 	}
 	
-	.main[data-open="true"]{
+	.main[data-open="false"]{
 		grid-template-columns: 3rem 1fr;
 		section {
 			header{
@@ -99,6 +99,9 @@
 			}
 		}
 		aside>header>div>h1{
+			display: none;
+		}
+		aside>section>span{
 			display: none;
 		}
 	}

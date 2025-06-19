@@ -4,21 +4,22 @@ import { catchError, of, switchMap } from 'rxjs';
 import { AuthService } from '../service/auth';
 
 @Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivate {
+export class LoginGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) { }
 
   canActivate: CanActivateFn = () => {
-    console.log('isauth: ', this.authService.isAuth())
-    if (this.authService.isAuth()) return of(true)
+    if (this.authService.isAuth()) {
+      this.router.navigate([''])
+      return of(false)
+    }
 
     return this.authService.restoreSession().pipe(
-      switchMap(() => of(true)),
-      catchError(() => {
-        this.router.navigate(['auth/login'])
+      switchMap(() => {
+        this.router.navigate([''])
         return of(false)
-      })
+      }),
+      catchError(() => of(true))
     )
-
   }
 
 }

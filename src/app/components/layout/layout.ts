@@ -1,5 +1,5 @@
 import { Component, Signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { ChartColumnBig, ListChecks, LucideAngularModule, PanelLeft, ScanBarcode } from 'lucide-angular';
 import { HlmButtonDirective } from '../ui/ui-button-helm/src';
 import { HlmToggleDirective } from '../ui/ui-toggle-helm/src';
@@ -23,19 +23,29 @@ export class Layout {
   open!: Signal<boolean>
 
   menuButtons = [
-    { title: "Dashboard", url: "/dash", icon: ChartColumnBig, requiredRoles: ['ADMIN'] },
-    { title: "Ordens de Serviço", url: "/service-orders", icon: ListChecks, requiredRoles: ['ADMIN'] },
-    { title: "Produtos", url: "/", icon: ScanBarcode, requiredRoles: ['ADMIN'] },
+    { isActive: false, title: "Dashboard", url: "/", icon: ChartColumnBig, requiredRoles: ['ADMIN'] },
+    { isActive: false, title: "Ordens de Serviço", url: "/service-orders", icon: ListChecks, requiredRoles: ['ADMIN'] },
+    { isActive: false, title: "Produtos", url: "/products", icon: ScanBarcode, requiredRoles: ['ADMIN'] },
   ]
-
-  a(e: any) {
-    console.log(e)
-  }
-
+  
   constructor(
-    private readonly sidebarSerice: SidebarService
+    private readonly sidebarSerice: SidebarService,
+    private readonly router: Router
   ) {
     this.open = this.sidebarSerice.open
+    this.setMenuButtonActive()
+  }
+  
+  async navigate(url: string){
+    await this.router.navigate([url])
+    this.setMenuButtonActive()
+  }
+
+  setMenuButtonActive(){
+    this.menuButtons = this.menuButtons.map(item => {
+      item.isActive = item.url == this.router.url
+      return item
+    })
   }
 
 }

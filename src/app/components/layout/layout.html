@@ -11,13 +11,16 @@
       <ul>
         @for(item of menuButtons; track item.title){
           <li>
-            <button hlmToggle [attr.data-state]="item.title == menuButtons[0].title?'on':'off'" >
+            <button 
+              hlmToggle [attr.data-state]="item.isActive?'on':'off'" 
+              (click)="navigate(item.url)"
+            >
               <i-lucide 
-                [color]="item.title == menuButtons[0].title?'var(--color-foreground)':'var(--color-muted-foreground)'" 
+                [color]="item.isActive?'var(--color-foreground)':'var(--color-muted-foreground)'" 
                 [size]="16" 
                 [img]="item.icon" 
               />
-              {{item.title}}
+              {{open()?item.title:''}}
             </button>
           </li>
         }
