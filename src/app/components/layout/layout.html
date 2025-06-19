@@ -1,6 +1,31 @@
-<main class="main transition-[left,right,width] ease-linear" [attr.data-open]="open()">
+<main class="main" [attr.data-open]="open()">
   <aside>
-    
+    <header>
+      <div class="flex gap-2" >
+        <img src="logo.svg" alt="Logo" width="30" />
+        <h1 class="w-full text-start text-3xl text-primary font-bold" >oTrack</h1>
+      </div>
+    </header>
+    <section>
+      <span>Resources</span>
+      <ul>
+        @for(item of menuButtons; track item.title){
+          <li>
+            <button hlmToggle [attr.data-state]="item.title == menuButtons[0].title?'on':'off'" >
+              <i-lucide 
+                [color]="item.title == menuButtons[0].title?'var(--color-foreground)':'var(--color-muted-foreground)'" 
+                [size]="16" 
+                [img]="item.icon" 
+              />
+              {{item.title}}
+            </button>
+          </li>
+        }
+      </ul>
+    </section>
+    <footer>
+
+    </footer>
   </aside>
   <section>
     <header>

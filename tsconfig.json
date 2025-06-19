@@ -19,6 +19,12 @@
       ],
       "@spartan-ng/helm/spinner": [
         ".\\src/app/components/ui/ui-spinner-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/toggle": [
+        ".\\src/app/components/ui/ui-toggle-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/icon": [
+        ".\\src/app/components/ui/ui-icon-helm/src/index.ts"
       ]
     }
   },
