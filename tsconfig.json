@@ -28,6 +28,9 @@
       ],
       "@spartan-ng/helm/menu": [
         ".\\src/app/components/ui/ui-menu-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/sheet": [
+        ".\\src/app/components/ui/ui-sheet-helm/src/index.ts"
       ]
     }
   },
