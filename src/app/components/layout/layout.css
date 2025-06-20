@@ -78,6 +78,8 @@
             min-width: 1rem;
           }
           span{
+            font-size: var(--text-sm);
+            padding: 0;
             color: var(--color-muted-foreground) !important;
           }
 				}
