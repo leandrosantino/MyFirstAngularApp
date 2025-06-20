@@ -54,6 +54,10 @@ export class Layout {
     this.userProfile = this.authService.getUserProfile()
     this.setMenuButtonActive()
   }
+
+  getPageTitle(){
+    return this.menuButtons.find(item => item.isActive)?.title
+  }
   
   async navigate(url: string){
     await this.router.navigate([url])

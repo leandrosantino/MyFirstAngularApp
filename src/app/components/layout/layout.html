@@ -22,6 +22,7 @@
     <footer>
       <app-profile-menu />
     </footer>
+    <button toggleSidebar></button>
   </aside>
   <section>
     <header>
@@ -29,7 +30,7 @@
         <ng-icon [size]="'16px'" hlm name="lucidePanelLeft" />
       </button>
       <div data-orientation="vertical" role="none" class="shrink-0 bg-border w-[1px] mr-2 h-4"></div>
-      <h1>Ordens de Serviço</h1>
+      <h1>{{getPageTitle()}}</h1>
     </header>
     <main>
       <router-outlet />
