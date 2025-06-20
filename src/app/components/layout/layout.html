@@ -13,7 +13,7 @@
           <li>
             <button hlmToggle [attr.data-state]="item.isActive?'on':'off'" (click)="navigate(item.url)" >
               <ng-icon [size]="'16px'" [name]="item.icon" />
-              {{open()?item.title:''}}
+              <span>{{item.title}}</span>
             </button>
           </li>
         }
