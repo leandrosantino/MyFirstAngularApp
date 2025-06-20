@@ -1,19 +1,12 @@
 import { AuthService, UserProfile } from '@/app/service/auth';
 import { Component, Signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import {
-  HlmMenuComponent,
-  HlmMenuGroupComponent,
-  HlmMenuItemDirective,
-  HlmMenuItemIconDirective,
-  HlmMenuLabelComponent,
-  HlmMenuSeparatorComponent,
-  HlmMenuShortcutComponent
-} from '@spartan-ng/helm/menu';
-import { ChartColumnBig, ListChecks, LucideAngularModule, PanelLeft, ScanBarcode } from 'lucide-angular';
-import { HlmAvatarComponent, HlmAvatarFallbackDirective, HlmAvatarImageDirective } from '../ui/ui-avatar-helm/src';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideChartColumnBig, lucideListChecks, lucidePanelLeft, lucideScanBarcode } from '@ng-icons/lucide';
+import { LucideAngularModule } from 'lucide-angular';
+import { ProfileMenu } from '../profile-menu/profile-menu';
 import { HlmButtonDirective } from '../ui/ui-button-helm/src';
+import { HlmIconDirective } from '../ui/ui-icon-helm/src';
 import { HlmToggleDirective } from '../ui/ui-toggle-helm/src';
 import { SidebarService } from './sidebar-service';
 import { ToggleSidebarDirective } from './toggle-sidebar-directive';
@@ -26,35 +19,31 @@ import { ToggleSidebarDirective } from './toggle-sidebar-directive';
     ToggleSidebarDirective,
     LucideAngularModule,
     HlmToggleDirective,
-
-    BrnMenuTriggerDirective,
-
-    HlmMenuComponent,
-    HlmMenuItemDirective,
-    HlmMenuLabelComponent,
-    HlmMenuShortcutComponent,
-    HlmMenuSeparatorComponent,
-    HlmMenuItemIconDirective,
-    HlmMenuGroupComponent,
-
-    HlmAvatarImageDirective, 
-    HlmAvatarComponent, 
-    HlmAvatarFallbackDirective,
-
+    
+    HlmIconDirective, 
+    NgIcon,
+    ProfileMenu,
+  ],
+  providers: [
+    provideIcons({
+      lucideListChecks,
+      lucideChartColumnBig,
+      lucideScanBarcode,
+      lucidePanelLeft,
+    }),
   ],
   templateUrl: './layout.html',
   styleUrl: './layout.css'
 })
 export class Layout {
-  PanelLeftIcon = PanelLeft
-  open!: Signal<boolean>
-
+  
   menuButtons = [
-    { isActive: false, title: "Dashboard", url: "/", icon: ChartColumnBig, requiredRoles: ['ADMIN'] },
-    { isActive: false, title: "Ordens de Serviço", url: "/service-orders", icon: ListChecks, requiredRoles: ['ADMIN'] },
-    { isActive: false, title: "Produtos", url: "/products", icon: ScanBarcode, requiredRoles: ['ADMIN'] },
+    { isActive: false, title: "Dashboard", url: "/", icon: 'lucideChartColumnBig', requiredRoles: ['ADMIN'] },
+    { isActive: false, title: "Ordens de Serviço", url: "/service-orders", icon: 'lucideListChecks', requiredRoles: ['ADMIN'] },
+    { isActive: false, title: "Produtos", url: "/products", icon: 'lucideScanBarcode', requiredRoles: ['ADMIN'] },
   ]
   userProfile?: UserProfile
+  open!: Signal<boolean>
   
   constructor(
     private readonly sidebarSerice: SidebarService,

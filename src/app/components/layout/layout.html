@@ -11,15 +11,8 @@
       <ul>
         @for(item of menuButtons; track item.title){
           <li>
-            <button 
-              hlmToggle [attr.data-state]="item.isActive?'on':'off'" 
-              (click)="navigate(item.url)"
-            >
-              <i-lucide 
-                [color]="item.isActive?'var(--color-foreground)':'var(--color-muted-foreground)'" 
-                [size]="16" 
-                [img]="item.icon" 
-              />
+            <button hlmToggle [attr.data-state]="item.isActive?'on':'off'" (click)="navigate(item.url)" >
+              <ng-icon [size]="'16px'" [name]="item.icon" />
               {{open()?item.title:''}}
             </button>
           </li>
@@ -27,60 +20,13 @@
       </ul>
     </section>
     <footer>
-      <button hlmBtn variant="ghost" [brnMenuTriggerFor]="userMenu">
-        <hlm-avatar variant="medium">
-          <img [src]="userProfile?.profilePictureUrl" alt="spartan logo. Resembling a spartanic shield" hlmAvatarImage />
-          <span class="bg-zinc-300 text-zinc-900" hlmAvatarFallback>
-            {{userProfile?.displayName?.slice(0, 2)?.toUpperCase()}}
-          </span>
-        </hlm-avatar>
-      </button>
-      <ng-template #userMenu>
-        <hlm-menu class="w-56">
-          <hlm-menu-label>My Account</hlm-menu-label>
-          <hlm-menu-separator />
-          <hlm-menu-group>
-            <button hlmMenuItem>
-              <ng-icon hlm name="lucideUser" hlmMenuIcon />
-              <span>Profile</span>
-              <hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
-            </button>
-
-            <button hlmMenuItem>
-              <ng-icon hlm name="lucideLayers" hlmMenuIcon />
-              <span>Billing</span>
-              <hlm-menu-shortcut>⌘B</hlm-menu-shortcut>
-            </button>
-
-            <button hlmMenuItem>
-              <ng-icon hlm name="lucideCog" hlmMenuIcon />
-              <span>Settings</span>
-              <hlm-menu-shortcut>⌘S</hlm-menu-shortcut>
-            </button>
-
-            <button hlmMenuItem>
-              <ng-icon hlm name="lucideKeyboard" hlmMenuIcon />
-              <span>Keyboard Shortcuts</span>
-              <hlm-menu-shortcut>⌘K</hlm-menu-shortcut>
-            </button>
-          </hlm-menu-group>
-
-          <hlm-menu-separator />
-
-          <button hlmMenuItem>
-            <ng-icon hlm name="lucideLogOut" hlmMenuIcon />
-            <span>Logout</span>
-            <hlm-menu-shortcut>⇧⌘Q</hlm-menu-shortcut>
-          </button>
-        </hlm-menu>
-
-      </ng-template>
+      <app-profile-menu />
     </footer>
   </aside>
   <section>
     <header>
       <button hlmBtn toggleSidebar [variant]="'ghost'" [size]="'icon'" >
-        <lucide-icon [size]="16" [strokeWidth]="(2.25)" [img]="PanelLeftIcon" />
+        <ng-icon [size]="'16px'" hlm name="lucidePanelLeft" />
       </button>
       <div data-orientation="vertical" role="none" class="shrink-0 bg-border w-[1px] mr-2 h-4"></div>
       <h1>Ordens de Serviço</h1>
