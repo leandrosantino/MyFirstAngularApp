@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthLayout } from '../components/auth-layout/auth-layout';
 import { Layout } from '../components/layout/layout';
 import { Home } from '../pages/home/home';
 import { Login } from '../pages/login/login';
@@ -30,6 +31,7 @@ export const routes: Routes = [
   {
     path: "auth",
     canActivate: [LoginGuard],
+    component: AuthLayout,
     children: [
       {
         path: 'login',

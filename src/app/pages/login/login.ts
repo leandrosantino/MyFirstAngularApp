@@ -1,12 +1,14 @@
 import { HlmButtonDirective } from '@/app/components/ui/ui-button-helm/src';
+import { HlmCheckboxComponent } from '@/app/components/ui/ui-checkbox-helm/src';
 import { HlmInputDirective } from '@/app/components/ui/ui-input-helm/src';
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../service/auth';
 
 @Component({
   selector: 'app-login',
-  imports: [HlmButtonDirective, HlmInputDirective],
+  imports: [HlmButtonDirective, HlmInputDirective, HlmCheckboxComponent, ReactiveFormsModule],
   templateUrl: './login.html',
 })
 export class Login {
@@ -16,14 +18,34 @@ export class Login {
     private readonly router: Router
   ) { }
 
-  async login() {
-    this.authService.login(
-      'johndoe@gmail.com',
-      '123456'
-    ).subscribe({
+  showPassword = false
+
+  readonly formGroup = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required])
+  })
+
+  get email() {
+    return this.formGroup.get('email')
+  }
+  get password() {
+    return this.formGroup.get('password')
+  }
+
+  async submitLogin(event: SubmitEvent) {
+    event.preventDefault()
+
+    if (!this.email?.value || !this.password?.value) return
+
+    this.authService.login(this.email.value, this.password.value).subscribe({
       complete: () => this.router.navigate(['']),
       error: (err: Error) => {
-        console.log(err.message)
+        if (err.message === 'INVALID_PASSWORD') {
+          this.password?.setErrors({ INVALID_PASSWORD: true }, { emitEvent: true })
+        }
+        if (err.message === 'USER_NOT_FOUND') {
+          this.email?.setErrors({ USER_NOT_FOUND: true }, { emitEvent: true })
+        }
       }
     })
   }
