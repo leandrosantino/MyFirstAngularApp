@@ -1,17 +1,17 @@
 import { Component, Signal } from '@angular/core';
-import { HlmSpinnerComponent } from '../ui/ui-spinner-helm/src';
+import { Logo } from '../logo/logo';
 import { LoadingStateService } from './loading-state-service';
 
 @Component({
   selector: 'app-loading',
-  imports: [HlmSpinnerComponent],
+  imports: [Logo],
   templateUrl: './loading.html'
 })
 export class Loading {
 
   isLoading!: Signal<boolean>
 
-  constructor (
+  constructor(
     private readonly loadingStateService: LoadingStateService
   ) {
     this.isLoading = this.loadingStateService.isLoading

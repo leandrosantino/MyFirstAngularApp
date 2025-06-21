@@ -10,6 +10,7 @@ import {
   HlmSheetContentComponent
 } from '@spartan-ng/helm/sheet';
 import { LucideAngularModule } from 'lucide-angular';
+import { Logo } from '../logo/logo';
 import { ProfileMenu } from '../profile-menu/profile-menu';
 import { HlmButtonDirective } from '../ui/ui-button-helm/src';
 import { HlmIconDirective } from '../ui/ui-icon-helm/src';
@@ -34,7 +35,9 @@ import { ToggleSidebarDirective } from './toggle-sidebar-directive';
     BrnSheetTriggerDirective,
     BrnSheetContentDirective,
     HlmSheetComponent,
-    HlmSheetContentComponent
+    HlmSheetContentComponent,
+
+    Logo
   ],
   providers: [
     provideIcons({
