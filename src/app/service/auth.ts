@@ -43,7 +43,6 @@ export class AuthService {
   restoreSession() {
     return this.httpClient.get<{ accessToken: string }>('/auth/refresh').pipe(
       tap(({ accessToken }) => this.$token = accessToken),
-      tap(a => console.log('sdsd', a)),
       switchMap(() => this.httpClient.get<typeof this.userProfile>("/user/profile")),
       tap(userProfile => { this.userProfile = userProfile }),
     )
@@ -62,6 +61,18 @@ export class AuthService {
 
   isAuth() {
     return this.$token != ''
+  }
+
+  forgotPassword(email: string) {
+    return this.httpClient.post<void>('/auth/recover-password', { email })
+  }
+
+  resetPassword(ticket: string, newPassword: string) {
+    return this.httpClient.post<void>('/auth/update-password', { newPassword, ticket })
+  }
+
+  resetPasswordTicketIsValid(ticket: string) {
+    return this.httpClient.post<{ isValid: boolean }>('/auth/recover-password/isValid', { ticket })
   }
 
 }

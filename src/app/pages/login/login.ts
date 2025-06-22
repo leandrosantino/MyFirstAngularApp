@@ -3,12 +3,12 @@ import { HlmCheckboxComponent } from '@/app/components/ui/ui-checkbox-helm/src';
 import { HlmInputDirective } from '@/app/components/ui/ui-input-helm/src';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../service/auth';
 
 @Component({
   selector: 'app-login',
-  imports: [HlmButtonDirective, HlmInputDirective, HlmCheckboxComponent, ReactiveFormsModule],
+  imports: [HlmButtonDirective, HlmInputDirective, HlmCheckboxComponent, ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
 })
 export class Login {

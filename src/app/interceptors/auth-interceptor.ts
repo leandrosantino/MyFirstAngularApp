@@ -10,7 +10,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const httpClient = inject(HttpClient)
 
   const newReq = req.clone({
-    url: 'http://localhost:3000' + req.url,
+    url: 'http://10.0.0.106:3000' + req.url,
     withCredentials: true,
     headers: req.headers.append('Authorization', 'Bearer ' + authService.getToken())
   })
