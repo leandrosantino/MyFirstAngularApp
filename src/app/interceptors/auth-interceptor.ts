@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, EMPTY, switchMap, throwError } from 'rxjs';
-import { AuthService } from '../service/auth';
+import { AuthService } from '../services/auth';
 
 type ApiError = { type: string, messsage: string }
 

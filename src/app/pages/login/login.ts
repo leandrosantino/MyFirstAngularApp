@@ -4,7 +4,7 @@ import { HlmInputDirective } from '@/app/components/ui/ui-input-helm/src';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../service/auth';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-login',

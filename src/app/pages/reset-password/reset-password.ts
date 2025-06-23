@@ -9,7 +9,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideCircleCheckBig, lucideFrown } from '@ng-icons/lucide';
 import { LucideAngularModule } from 'lucide-angular';
-import { AuthService } from '../../service/auth';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-reset-password',

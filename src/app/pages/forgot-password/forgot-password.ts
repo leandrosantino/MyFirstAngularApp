@@ -1,6 +1,6 @@
 import { HlmButtonDirective } from '@/app/components/ui/ui-button-helm/src';
 import { HlmInputDirective } from '@/app/components/ui/ui-input-helm/src';
-import { AuthService } from '@/app/service/auth';
+import { AuthService } from '@/app/services/auth';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';

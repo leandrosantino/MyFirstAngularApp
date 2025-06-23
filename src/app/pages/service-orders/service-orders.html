@@ -1,1 +1,26 @@
-<p>service-orders works!</p>
+<div class="max-w-[1100px] w-full">
+  <div class="font-semibold mb-6 w-full h-8">
+    Filtros
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
+    @for (frame of frames; track frame.id) {
+      <div class="rounded-md text-foreground shadow bg-transparent border-0 shadow-transparent">
+        <header class="flex flex-col space-y-1.5 p-4">
+          <h3 class="tracking-tight text-sm font-medium text-black">
+            {{frame.title}} ({{frame.orders.length}})
+          </h3>
+        </header>
+        <section 
+          class="
+            space-y-3 sm:max-h-[calc(100vh-14.9rem)] lg:h-[calc(100vh-14.9rem)] 
+            overflow-y-auto p-1 pt-0 scrollbar scrollbar-hide hover:scrollbar-show
+          "
+        >
+          @for (order of frame.orders; track order.id) {
+            <app-order-card [data]="order" />
+          }
+        </section>
+      </div>
+    }
+  </div>
+</div>

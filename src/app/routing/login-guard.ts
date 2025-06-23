@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { CanActivate, CanActivateFn, Router } from '@angular/router';
 import { catchError, finalize, of, switchMap } from 'rxjs';
 import { LoadingStateService } from '../components/loading/loading-state-service';
-import { AuthService } from '../service/auth';
+import { AuthService } from '../services/auth';
 
 @Injectable({ providedIn: 'root' })
 export class LoginGuard implements CanActivate {
 
   constructor(
-    private readonly authService: AuthService, 
+    private readonly authService: AuthService,
     private readonly router: Router,
     private readonly loadingStateService: LoadingStateService
   ) { }
@@ -18,7 +18,7 @@ export class LoginGuard implements CanActivate {
       this.router.navigate([''])
       return of(false)
     }
-    
+
     this.loadingStateService.setIsLoading(true)
     return this.authService.restoreSession().pipe(
       switchMap(() => {

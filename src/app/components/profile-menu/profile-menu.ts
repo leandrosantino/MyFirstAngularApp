@@ -1,4 +1,4 @@
-import { AuthService, UserProfile } from '@/app/service/auth';
+import { AuthService, UserProfile } from '@/app/services/auth';
 import { Component, Signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronsUpDown, lucideCog, lucideKeyboard, lucideLayers, lucideLogOut, lucideUser } from '@ng-icons/lucide';
@@ -22,7 +22,7 @@ import { HlmIconDirective } from '../ui/ui-icon-helm/src';
   imports: [
     BrnMenuTriggerDirective,
     HlmButtonDirective,
-    
+
     HlmMenuComponent,
     HlmMenuItemDirective,
     HlmMenuLabelComponent,
@@ -31,11 +31,11 @@ import { HlmIconDirective } from '../ui/ui-icon-helm/src';
     HlmMenuItemIconDirective,
     HlmMenuGroupComponent,
 
-    HlmAvatarImageDirective, 
-    HlmAvatarComponent, 
+    HlmAvatarImageDirective,
+    HlmAvatarComponent,
     HlmAvatarFallbackDirective,
 
-    HlmIconDirective, 
+    HlmIconDirective,
     NgIcon,
   ],
   providers: [
@@ -53,7 +53,7 @@ import { HlmIconDirective } from '../ui/ui-icon-helm/src';
 export class ProfileMenu {
   userProfile?: UserProfile
   open!: Signal<boolean>
-  
+
   constructor(
     private readonly sidebarSerice: SidebarService,
     private readonly authService: AuthService

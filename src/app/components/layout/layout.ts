@@ -1,4 +1,4 @@
-import { AuthService, UserProfile } from '@/app/service/auth';
+import { AuthService, UserProfile } from '@/app/services/auth';
 import { CommonModule } from '@angular/common';
 import { Component, effect, OnDestroy, OnInit, Signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';

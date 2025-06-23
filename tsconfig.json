@@ -37,6 +37,9 @@
       ],
       "@spartan-ng/helm/checkbox": [
         ".\\src/app/components/ui/ui-checkbox-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/badge": [
+        ".\\src/app/components/ui/ui-badge-helm/src/index.ts"
       ]
     }
   },
