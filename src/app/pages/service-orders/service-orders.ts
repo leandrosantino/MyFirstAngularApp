@@ -54,15 +54,21 @@ export class ServiceOrders implements OnInit {
     })
   }
 
+  private playSuccessSound() {
+    const audio = new Audio('/success.mp3');
+    audio.play();
+  }
+
   async drop(event: CdkDragDrop<ServiceOrder[]>) {
     if (event.previousContainer === event.container) {
       await this.handleSameColumnMove(event)
       return
     }
+    if (event.container.id == 'done') this.playSuccessSound()
     await this.handleCrossColumnMove(event)
   }
 
-  async handleSameColumnMove(event: CdkDragDrop<ServiceOrder[]>) {
+  private async handleSameColumnMove(event: CdkDragDrop<ServiceOrder[]>) {
     const fromList = this.framesMap.get(event.previousContainer.id)
     const movingOrder = fromList?.orders[event.previousIndex]
     if (!movingOrder || !fromList) return
@@ -88,7 +94,7 @@ export class ServiceOrders implements OnInit {
 
   }
 
-  async handleCrossColumnMove(event: CdkDragDrop<ServiceOrder[]>) {
+  private async handleCrossColumnMove(event: CdkDragDrop<ServiceOrder[]>) {
     const movingOrder = this.framesMap.get(event.previousContainer.id)?.orders[event.previousIndex]
     if (!movingOrder) return
 

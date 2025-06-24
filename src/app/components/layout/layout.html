@@ -1,4 +1,4 @@
-<hlm-sheet side="left">
+<hlm-sheet side="left" >
 <main class="main" [attr.data-open]="open()" [attr.data-isMobile]="isMobile()">
   <ng-template #sidebase>
     <aside>
@@ -26,8 +26,9 @@
   </ng-template>
 
   @if(isMobile()){
-    <hlm-sheet-content *brnSheetContent="let ctx" class="w-fit p-0" >
+    <hlm-sheet-content state="open" *brnSheetContent="let ctx"  class="w-fit p-0" >
       <ng-container *ngTemplateOutlet="sidebase"></ng-container>
+      <button #closeSheet brnSheetClose class="hidden" ></button>
     </hlm-sheet-content>
   } @else {
     <ng-container *ngTemplateOutlet="sidebase"></ng-container>

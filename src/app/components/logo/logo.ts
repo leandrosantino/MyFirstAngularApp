@@ -1,9 +1,10 @@
 import { Component, Signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { SidebarService } from '../layout/sidebar-service';
 
 @Component({
   selector: 'app-logo',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './logo.html',
 })
 export class Logo {

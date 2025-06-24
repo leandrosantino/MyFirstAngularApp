@@ -75,6 +75,7 @@ export class ResetPassword {
     if (this.password.value !== this.confirmPassword.value) {
       this.confirmPassword.setErrors({ passwordMismatchError: true }, { emitEvent: true })
       this.password.setErrors({ passwordMismatchError: true }, { emitEvent: true })
+      return
     }
 
     if (!this.ticket) return

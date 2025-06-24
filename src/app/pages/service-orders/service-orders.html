@@ -4,26 +4,25 @@
   </div>
   <div cdkDropListGroup class="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
     @for (entrie of framesMap.entries(); track entrie[0]) {
-      <div 
-        class="rounded-md text-foreground shadow bg-transparent border-0 shadow-transparent"
-        cdkDropList
-        [cdkDropListData]="entrie[1].orders"
-        [id]="entrie[0]"
-        (cdkDropListDropped)="drop($event)"
-      >
+      <div>
         <div class="flex flex-col space-y-1.5 p-4">
           <h3 class="tracking-tight text-sm font-medium text-black">
             {{entrie[1].title}} ({{entrie[1].orders.length}})
           </h3>
         </div>
         <section 
+          cdkDropList
+          [cdkDropListData]="entrie[1].orders"
+          (cdkDropListDropped)="drop($event)"
+          [id]="entrie[0]"
           class="
             space-y-3 sm:max-h-[calc(100vh-14.9rem)] lg:h-[calc(100vh-14.9rem)] 
             overflow-y-auto p-1 pt-0 scrollbar scrollbar-hide hover:scrollbar-show
+            bg-transparent
           "
         >
           @for (data of entrie[1].orders; track data.id) {
-            <div cdkDrag class="overflow-hidden bg-transparent transition-transform ease-linear"  >
+            <div cdkDrag class="overflow-hidden bg-transparent shadow-md rounded-md transition-transform ease-linear"  >
               <app-order-card [data]="data" />
             </div>
           }

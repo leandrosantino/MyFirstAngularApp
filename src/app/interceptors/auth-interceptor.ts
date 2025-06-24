@@ -30,7 +30,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           switchMap(() => httpClient.request(req))
         )
       }
-      console.log(httpError)
+      // console.log(httpError)
       return throwError(() => new Error(errorData.type))
     }),
   )

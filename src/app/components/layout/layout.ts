@@ -1,10 +1,10 @@
 import { AuthService, UserProfile } from '@/app/services/auth';
 import { CommonModule } from '@angular/common';
-import { Component, effect, OnDestroy, OnInit, Signal } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, Signal, ViewChild } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChartColumnBig, lucideListChecks, lucidePanelLeft, lucideScanBarcode } from '@ng-icons/lucide';
-import { BrnSheetContentDirective, BrnSheetTriggerDirective } from '@spartan-ng/brain/sheet';
+import { BrnSheetCloseDirective, BrnSheetContentDirective, BrnSheetTriggerDirective } from '@spartan-ng/brain/sheet';
 import {
   HlmSheetComponent,
   HlmSheetContentComponent
@@ -34,6 +34,7 @@ import { ToggleSidebarDirective } from './toggle-sidebar-directive';
 
     BrnSheetTriggerDirective,
     BrnSheetContentDirective,
+    BrnSheetCloseDirective,
     HlmSheetComponent,
     HlmSheetContentComponent,
 
@@ -61,8 +62,7 @@ export class Layout implements OnInit, OnDestroy {
   open!: Signal<boolean>
   isMobile!: Signal<boolean>
 
-
-  sheetCtx: any
+  @ViewChild('closeSheet') closeSheetBtn!: ElementRef<HTMLButtonElement>;
 
   constructor(
     private readonly sidebarSerice: SidebarService,
@@ -74,8 +74,8 @@ export class Layout implements OnInit, OnDestroy {
     this.userProfile = this.authService.getUserProfile()
     this.setMenuButtonActive()
 
-    effect(() => {
-      console.log('isMobile:', this.isMobile());
+    this.router.events.subscribe((event) => {
+      if (event.type == 1) this.setMenuButtonActive()
     })
 
   }
@@ -99,6 +99,7 @@ export class Layout implements OnInit, OnDestroy {
   async navigate(url: string) {
     await this.router.navigate([url])
     this.setMenuButtonActive()
+    if (this.isMobile()) this.closeSheetBtn.nativeElement.click();
   }
 
   setMenuButtonActive() {

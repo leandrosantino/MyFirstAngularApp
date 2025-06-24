@@ -41,7 +41,6 @@ export class OrdersService {
   startRealtime() {
     return this.authService.generateWebSocketTicket().pipe(
       tap(({ ticket }) => {
-        console.log('tap')
         this.socketClient = new WsClient('ws://localhost:3000/service-order/realtime/' + ticket)
       }),
       switchMap(() => of(this.socketClient))
