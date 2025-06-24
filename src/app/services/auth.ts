@@ -75,4 +75,8 @@ export class AuthService {
     return this.httpClient.post<{ isValid: boolean }>('/auth/recover-password/isValid', { ticket })
   }
 
+  generateWebSocketTicket() {
+    return this.httpClient.get<{ ticket: string }>('/auth/websocket-ticket')
+  }
+
 }

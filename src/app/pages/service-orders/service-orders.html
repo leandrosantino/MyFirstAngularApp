@@ -3,16 +3,17 @@
     Filtros
   </div>
   <div cdkDropListGroup class="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
-    @for (frame of frames; track frame.id) {
+    @for (entrie of framesMap.entries(); track entrie[0]) {
       <div 
         class="rounded-md text-foreground shadow bg-transparent border-0 shadow-transparent"
         cdkDropList
-        [cdkDropListData]="frame.orders"
+        [cdkDropListData]="entrie[1].orders"
+        [id]="entrie[0]"
         (cdkDropListDropped)="drop($event)"
       >
         <div class="flex flex-col space-y-1.5 p-4">
           <h3 class="tracking-tight text-sm font-medium text-black">
-            {{frame.title}} ({{frame.orders.length}})
+            {{entrie[1].title}} ({{entrie[1].orders.length}})
           </h3>
         </div>
         <section 
@@ -21,7 +22,7 @@
             overflow-y-auto p-1 pt-0 scrollbar scrollbar-hide hover:scrollbar-show
           "
         >
-          @for (data of frame.orders; track data.id) {
+          @for (data of entrie[1].orders; track data.id) {
             <div cdkDrag class="overflow-hidden bg-transparent transition-transform ease-linear"  >
               <app-order-card [data]="data" />
             </div>
