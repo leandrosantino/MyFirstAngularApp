@@ -119,6 +119,7 @@
       display: flex;
       justify-content: center;
 			padding: 1.5rem;
+			overflow-y: auto;
 		}
 	}
 	

@@ -7,6 +7,7 @@ import { HlmBadgeDirective } from '../ui/ui-badge-helm/src';
   selector: 'app-order-card',
   imports: [HlmBadgeDirective],
   templateUrl: './order-card.html',
+  styles: [':host { display: contents }']
 })
 export class OrderCard {
 

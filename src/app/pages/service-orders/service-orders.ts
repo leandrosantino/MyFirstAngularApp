@@ -1,6 +1,15 @@
 import { OrderCard } from '@/app/components/order-card/order-card';
 import { ServiceOrder } from '@/app/services/orders';
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDropList,
+  CdkDropListGroup,
+  moveItemInArray,
+  transferArrayItem
+} from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
+import { twMerge } from 'tailwind-merge';
 
 type Column = {
   id: string
@@ -10,7 +19,7 @@ type Column = {
 
 @Component({
   selector: 'app-service-orders',
-  imports: [OrderCard],
+  imports: [OrderCard, CdkDropList, CdkDropListGroup, CdkDrag],
   templateUrl: './service-orders.html',
   styles: [':host { display: contents }']
 })
@@ -28,15 +37,26 @@ export class ServiceOrders {
     })
   },
   {
-    id: "in_progress", title: "Em Andamento", orders: new Array(2).fill({
-      date: new Date(),
-      description: 'Teste',
-      id: 1,
-      index: 0,
-      status: 'in_progress',
-      type: 'corrective',
-      userId: 1
-    })
+    id: "in_progress", title: "Em Andamento", orders: [
+      {
+        date: new Date(),
+        description: 'sdsdf8s4dgfsdfg',
+        id: 2,
+        index: 4,
+        status: 'in_progress',
+        type: 'corrective',
+        userId: 1
+      },
+      {
+        date: new Date(),
+        description: 'Teste',
+        id: 1,
+        index: 0,
+        status: 'in_progress',
+        type: 'corrective',
+        userId: 1
+      }
+    ]
   },
   {
     id: "done", title: "Concluído", orders: new Array(4).fill({
@@ -50,4 +70,21 @@ export class ServiceOrders {
     }),
   },
   ]
+
+  cn = twMerge
+
+
+  drop(event: CdkDragDrop<ServiceOrder[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
+  }
+
 }
