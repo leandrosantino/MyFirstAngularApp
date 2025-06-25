@@ -83,15 +83,20 @@ export class ServiceOrders implements OnInit {
       previousIndex = fromList.orders[event.currentIndex - 1]?.index
       postIndex = fromList.orders[event.currentIndex]?.index
     }
-    const updated = await this.ordersService.updateKanbanPosition({
-      id: movingOrder.id,
-      previousIndex,
-      postIndex,
-      status: event.container.id as ServiceOrder['status']
-    })
-    movingOrder.index = updated.index
+    
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
 
+    try{
+      const updated = await this.ordersService.updateKanbanPosition({
+        id: movingOrder.id,
+        previousIndex,
+        postIndex,
+        status: event.container.id as ServiceOrder['status']
+      })
+      movingOrder.index = updated.index
+    } catch {
+      this.loadServiceOrders()
+    }
   }
 
   private async handleCrossColumnMove(event: CdkDragDrop<ServiceOrder[]>) {
@@ -100,20 +105,26 @@ export class ServiceOrders implements OnInit {
 
     const postIndex = this.framesMap.get(event.container.id)?.orders[event.currentIndex]?.index
     const previousIndex = this.framesMap.get(event.container.id)?.orders[event.currentIndex - 1]?.index
-    const updated = await this.ordersService.updateKanbanPosition({
-      id: movingOrder.id,
-      previousIndex,
-      postIndex,
-      status: event.container.id as ServiceOrder['status']
-    })
-    movingOrder.index = updated.index
-    movingOrder.status = event.container.id as ServiceOrder['status']
+
     transferArrayItem(
       event.previousContainer.data,
       event.container.data,
       event.previousIndex,
       event.currentIndex,
-    );
+    )
+
+    try {
+      const updated = await this.ordersService.updateKanbanPosition({
+        id: movingOrder.id,
+        previousIndex,
+        postIndex,
+        status: event.container.id as ServiceOrder['status']
+      })
+      movingOrder.index = updated.index
+      movingOrder.status = event.container.id as ServiceOrder['status']
+    } catch {
+      this.loadServiceOrders()    
+    }
   }
 
 }

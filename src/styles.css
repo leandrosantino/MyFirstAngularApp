@@ -25,7 +25,7 @@
 
   .cdk-drag-preview {
     transition-property: none !important;
-    cursor: pointer;
+    cursor: grabbing;
   }
   .cdk-drag-placeholder {
     opacity: 0;
