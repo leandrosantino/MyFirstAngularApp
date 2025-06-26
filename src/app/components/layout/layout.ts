@@ -23,21 +23,22 @@ import { ToggleSidebarDirective } from './toggle-sidebar-directive';
   imports: [
     CommonModule,
     RouterOutlet,
+    
     HlmButtonDirective,
-    ToggleSidebarDirective,
-    LucideAngularModule,
     HlmToggleDirective,
-
+    
+    LucideAngularModule,
     HlmIconDirective,
     NgIcon,
-    ProfileMenu,
-
+    
     BrnSheetTriggerDirective,
     BrnSheetContentDirective,
     BrnSheetCloseDirective,
     HlmSheetComponent,
     HlmSheetContentComponent,
-
+    
+    ToggleSidebarDirective,
+    ProfileMenu,
     Logo
   ],
   providers: [

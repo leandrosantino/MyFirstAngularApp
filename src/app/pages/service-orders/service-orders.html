@@ -15,12 +15,25 @@
           [cdkDropListData]="entrie[1].orders"
           (cdkDropListDropped)="drop($event)"
           [id]="entrie[0]"
+          [attr.data-empty]="entrie[1].orders.length == 0"
           class="
+            frame
             space-y-3 sm:max-h-[calc(100vh-14.9rem)] lg:h-[calc(100vh-14.9rem)] 
             overflow-y-auto p-1 pt-0 scrollbar scrollbar-hide hover:scrollbar-show
             bg-transparent
           "
         >
+          @if(entrie[1].orders.length == 0){
+            <div 
+              class="
+                overflow-hidden bg-transparent  rounded-md
+                h-40 border-dashed border-3 border-zinc-300 text-zinc-300
+                flex justify-center items-center
+              "  
+            >
+              <ng-icon [size]="'30px'" name="lucideSquareDashedMousePointer" />
+            </div>
+          }
           @for (data of entrie[1].orders; track data.id) {
             <div cdkDrag class="overflow-hidden bg-transparent shadow-md rounded-md transition-transform ease-linear"  >
               <app-order-card [data]="data" />

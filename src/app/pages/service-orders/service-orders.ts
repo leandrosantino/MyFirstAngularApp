@@ -9,6 +9,9 @@ import {
   transferArrayItem
 } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideSquareDashedMousePointer } from '@ng-icons/lucide';
+import { LucideAngularModule } from 'lucide-angular';
 
 type Frame = {
   title: string
@@ -17,9 +20,18 @@ type Frame = {
 
 @Component({
   selector: 'app-service-orders',
-  imports: [OrderCard, CdkDropList, CdkDropListGroup, CdkDrag],
+  imports: [
+    OrderCard, CdkDropList, CdkDropListGroup, CdkDrag,
+    LucideAngularModule,
+    NgIcon,
+  ],
+  providers: [
+    provideIcons({
+      lucideSquareDashedMousePointer 
+    }),
+  ],
   templateUrl: './service-orders.html',
-  styles: [':host { display: contents }']
+  styleUrl: './service-orders.css'
 })
 export class ServiceOrders implements OnInit {
 
@@ -34,23 +46,27 @@ export class ServiceOrders implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.loadServiceOrders()
-    this.ordersService.startRealtime().subscribe(() => {
-      this.ordersService.onCreated(data => this.onCreated(data))
-      this.ordersService.onUpdated(() => { this.loadServiceOrders() })
+    this.ordersService.startRealtime().subscribe((data) => {
+      this.loadServiceOrders(data)
+      this.ordersService.onCreated(this.onCreated.bind(this))
+      this.ordersService.onUpdated(this.update.bind(this))
     })
   }
 
-  onCreated(serviceOrder: ServiceOrder) {
-    this.framesMap.get(serviceOrder.status)?.orders.push(serviceOrder)
+  update(){
+    this.ordersService.getAll().subscribe(this.loadServiceOrders.bind(this))
   }
 
-  loadServiceOrders() {
+  onCreated(newOrder: ServiceOrder) {
+    const frame = this.framesMap.get(newOrder.status)
+    if(!frame) return
+    frame.orders = [newOrder, ...frame.orders]
+  }
+
+  loadServiceOrders(orders: ServiceOrder[]) {
     this.framesMap.forEach((frame) => { frame.orders = [] })
-    this.ordersService.getAll().subscribe(serviceOrders => {
-      serviceOrders.forEach(item => {
-        this.framesMap.get(item.status)?.orders.push(item)
-      })
+    orders.forEach(item => {
+      this.framesMap.get(item.status)?.orders.push(item)
     })
   }
 
@@ -95,7 +111,7 @@ export class ServiceOrders implements OnInit {
       })
       movingOrder.index = updated.index
     } catch {
-      this.loadServiceOrders()
+      this.update()
     }
   }
 
@@ -123,7 +139,7 @@ export class ServiceOrders implements OnInit {
       movingOrder.index = updated.index
       movingOrder.status = event.container.id as ServiceOrder['status']
     } catch {
-      this.loadServiceOrders()    
+      this.update()    
     }
   }
 

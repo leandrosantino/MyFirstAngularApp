@@ -1,7 +1,7 @@
 import { WsClient } from '@/lib/web-socket-client';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of, switchMap, tap } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { AuthService } from './auth';
 
 export interface ServiceOrder {
@@ -40,10 +40,15 @@ export class OrdersService {
 
   startRealtime() {
     return this.authService.generateWebSocketTicket().pipe(
-      tap(({ ticket }) => {
+      switchMap(({ ticket }) => {
         this.socketClient = new WsClient('ws://localhost:3000/service-order/realtime/' + ticket)
-      }),
-      switchMap(() => of(this.socketClient))
+        return new Observable<ServiceOrder[]>(observer => {
+          this.socketClient.on('connected', (orders: ServiceOrder[]) => {
+            observer.next(orders)
+            observer.complete()
+          })
+        })
+      })
     )
   }
 

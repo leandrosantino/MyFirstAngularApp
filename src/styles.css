@@ -22,14 +22,6 @@
   button {
     cursor: pointer;
   }
-
-  .cdk-drag-preview {
-    transition-property: none !important;
-    cursor: grabbing;
-  }
-  .cdk-drag-placeholder {
-    opacity: 0;
-  }
   
 }
 
