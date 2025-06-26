@@ -35,7 +35,7 @@
             </div>
           }
           @for (data of entrie[1].orders; track data.id) {
-            <div cdkDrag class="overflow-hidden bg-transparent shadow-md rounded-md transition-transform ease-linear"  >
+            <div cdkDrag class="overflow-hidden bg-transparent shadow-md rounded-md transition-transform ease-linear cursor-grab active:cursor-grabbing"  >
               <app-order-card [data]="data" />
             </div>
           }

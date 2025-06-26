@@ -8,7 +8,7 @@ import {
   moveItemInArray,
   transferArrayItem
 } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideSquareDashedMousePointer } from '@ng-icons/lucide';
 import { LucideAngularModule } from 'lucide-angular';
@@ -33,7 +33,7 @@ type Frame = {
   templateUrl: './service-orders.html',
   styleUrl: './service-orders.css'
 })
-export class ServiceOrders implements OnInit {
+export class ServiceOrders implements OnInit, OnDestroy {
 
   readonly framesMap = new Map<string, Frame>([
     ['pending', { title: 'Pendente', orders: [] }],
@@ -44,6 +44,10 @@ export class ServiceOrders implements OnInit {
   constructor(
     private readonly ordersService: OrdersService
   ) { }
+
+  ngOnDestroy(): void {
+    this.ordersService.closeSocketConnection()
+  }
 
   async ngOnInit() {
     this.ordersService.startRealtime().subscribe((data) => {

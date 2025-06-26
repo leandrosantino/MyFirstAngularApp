@@ -2,7 +2,6 @@
 
 .cdk-drag-preview {
   transition-property: none !important;
-  cursor: grabbing;
 }
 
 .cdk-drag-placeholder {
@@ -11,4 +10,8 @@
 
 .frame[data-empty="true"] .cdk-drag-placeholder{
   display: none !important;
+}
+
+:host:has(.cdk-drag-placeholder) {
+  cursor: grabbing !important;
 }

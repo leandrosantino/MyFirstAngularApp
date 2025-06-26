@@ -22,7 +22,7 @@ export class OrdersService {
   constructor(
     private readonly httpClient: HttpClient,
     private readonly authService: AuthService
-  ) { }
+  ) {  }
 
 
   private socketClient!: WsClient
@@ -32,6 +32,10 @@ export class OrdersService {
   }
   onUpdated(cb: (order: ServiceOrder) => void) {
     this.socketClient.on('updated', cb)
+  }
+
+  closeSocketConnection(){
+    this.socketClient.close()
   }
 
   getAll() {
@@ -52,6 +56,8 @@ export class OrdersService {
     )
   }
 
+  count = 0
+
   async updateKanbanPosition(data: {
     id: number
     previousIndex?: number
@@ -59,12 +65,15 @@ export class OrdersService {
     status: ServiceOrder['status']
   }): Promise<ServiceOrder> {
     return await new Promise<ServiceOrder>((resolve, reject) => {
+      this.count++
+      const a = this.count.toString()
       try {
         this.socketClient.emit('updateKanbanPosition', data)
-        this.socketClient.on('updateKanbanPositionReturn', (updatedOrder: ServiceOrder) => {
+        const off = this.socketClient.on('updateKanbanPositionReturn', (updatedOrder: ServiceOrder) => {
+          off()
           resolve(updatedOrder)
-          console.log('resolve')
         })
+
       } catch (err) {
         reject(err)
       }
