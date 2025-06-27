@@ -23,6 +23,6 @@
   <div class="p-2 text-sm h-16">{{data.description}}</div>
   <div class="flex p-2 text-xs flex-row justify-between items-center">
     <div>MQ-005-2023</div>
-    <div>{{data.date.toLocaleString()}}</div>
+    <div>{{data.date | date:'medium':undefined:'pt-br' }} </div>
   </div>
-</div>
+</div>  
