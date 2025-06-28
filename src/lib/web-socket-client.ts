@@ -33,8 +33,9 @@ export class WsClient {
     this.socket.send(JSON.stringify({ event, payload }))
   }
 
-  close(){
+  close() {
     this.listener.clear()
+    this.socket.close()
   }
 
   onClose(call: VoidFunction) {

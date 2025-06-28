@@ -14,6 +14,13 @@ export interface ServiceOrder {
   type: "scheduled" | "corrective"
 }
 
+type UpdateKanbanPositionRequestDTO = {
+  id: number
+  previousIndex?: number
+  postIndex?: number
+  status: ServiceOrder['status']
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +29,7 @@ export class OrdersService {
   constructor(
     private readonly httpClient: HttpClient,
     private readonly authService: AuthService
-  ) {  }
+  ) { }
 
 
   private socketClient!: WsClient
@@ -34,7 +41,7 @@ export class OrdersService {
     this.socketClient.on('updated', cb)
   }
 
-  closeSocketConnection(){
+  closeSocketConnection() {
     this.socketClient.close()
   }
 
@@ -56,26 +63,39 @@ export class OrdersService {
     )
   }
 
-  count = 0
-
-  async updateKanbanPosition(data: {
+  async aupdateKanbanPosition(data: {
     id: number
     previousIndex?: number
     postIndex?: number
     status: ServiceOrder['status']
   }): Promise<ServiceOrder> {
     return await new Promise<ServiceOrder>((resolve, reject) => {
-      this.count++
-      const a = this.count.toString()
       try {
         this.socketClient.emit('updateKanbanPosition', data)
-        const off = this.socketClient.on('updateKanbanPositionReturn', (updatedOrder: ServiceOrder) => {
-          off()
-          resolve(updatedOrder)
-        })
-
+        const off = this.socketClient
+          .on('updateKanbanPosition', (updatedOrder: ServiceOrder) => {
+            off()
+            resolve(updatedOrder)
+          })
       } catch (err) {
         reject(err)
+      }
+    })
+  }
+
+  updateKanbanPosition(data: UpdateKanbanPositionRequestDTO) {
+    return new Observable<ServiceOrder>(observer => {
+      try {
+        this.socketClient.emit('updateKanbanPosition', data)
+        const off = this.socketClient
+          .on('updateKanbanPosition', (updatedOrder: ServiceOrder) => {
+            off()
+            observer.next(updatedOrder)
+            observer.complete()
+          })
+      } catch (err) {
+        observer.error(err)
+        observer.complete()
       }
     })
   }

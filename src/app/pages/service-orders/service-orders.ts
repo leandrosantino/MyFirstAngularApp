@@ -27,7 +27,7 @@ type Frame = {
   ],
   providers: [
     provideIcons({
-      lucideSquareDashedMousePointer 
+      lucideSquareDashedMousePointer
     }),
   ],
   templateUrl: './service-orders.html',
@@ -57,13 +57,13 @@ export class ServiceOrders implements OnInit, OnDestroy {
     })
   }
 
-  update(){
+  update() {
     this.ordersService.getAll().subscribe(this.loadServiceOrders.bind(this))
   }
 
   onCreated(newOrder: ServiceOrder) {
     const frame = this.framesMap.get(newOrder.status)
-    if(!frame) return
+    if (!frame) return
     frame.orders = [newOrder, ...frame.orders]
   }
 
@@ -81,14 +81,14 @@ export class ServiceOrders implements OnInit, OnDestroy {
 
   async drop(event: CdkDragDrop<ServiceOrder[]>) {
     if (event.previousContainer === event.container) {
-      await this.handleSameColumnMove(event)
+      this.handleSameColumnMove(event)
       return
     }
     if (event.container.id == 'done') this.playSuccessSound()
-    await this.handleCrossColumnMove(event)
+    this.handleCrossColumnMove(event)
   }
 
-  private async handleSameColumnMove(event: CdkDragDrop<ServiceOrder[]>) {
+  private handleSameColumnMove(event: CdkDragDrop<ServiceOrder[]>) {
     const fromList = this.framesMap.get(event.previousContainer.id)
     const movingOrder = fromList?.orders[event.previousIndex]
     if (!movingOrder || !fromList) return
@@ -103,23 +103,21 @@ export class ServiceOrders implements OnInit, OnDestroy {
       previousIndex = fromList.orders[event.currentIndex - 1]?.index
       postIndex = fromList.orders[event.currentIndex]?.index
     }
-    
+
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
 
-    try{
-      const updated = await this.ordersService.updateKanbanPosition({
-        id: movingOrder.id,
-        previousIndex,
-        postIndex,
-        status: event.container.id as ServiceOrder['status']
-      })
-      movingOrder.index = updated.index
-    } catch {
-      this.update()
-    }
+    this.ordersService.updateKanbanPosition({
+      id: movingOrder.id,
+      previousIndex,
+      postIndex,
+      status: event.container.id as ServiceOrder['status']
+    }).subscribe({
+      next: updated => { movingOrder.index = updated.index },
+      error: () => this.update()
+    })
   }
 
-  private async handleCrossColumnMove(event: CdkDragDrop<ServiceOrder[]>) {
+  private handleCrossColumnMove(event: CdkDragDrop<ServiceOrder[]>) {
     const movingOrder = this.framesMap.get(event.previousContainer.id)?.orders[event.previousIndex]
     if (!movingOrder) return
 
@@ -133,18 +131,19 @@ export class ServiceOrders implements OnInit, OnDestroy {
       event.currentIndex,
     )
 
-    try {
-      const updated = await this.ordersService.updateKanbanPosition({
-        id: movingOrder.id,
-        previousIndex,
-        postIndex,
-        status: event.container.id as ServiceOrder['status']
-      })
-      movingOrder.index = updated.index
-      movingOrder.status = event.container.id as ServiceOrder['status']
-    } catch {
-      this.update()    
-    }
+    this.ordersService.updateKanbanPosition({
+      id: movingOrder.id,
+      previousIndex,
+      postIndex,
+      status: event.container.id as ServiceOrder['status']
+    }).subscribe({
+      next: updated => {
+        movingOrder.index = updated.index
+        movingOrder.status = event.container.id as ServiceOrder['status']
+      },
+      error: () => this.update()
+    })
+
   }
 
 }

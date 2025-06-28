@@ -40,6 +40,9 @@
       ],
       "@spartan-ng/helm/badge": [
         ".\\src/app/components/ui/ui-badge-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/dialog": [
+        ".\\src/app/components/ui/ui-dialog-helm/src/index.ts"
       ]
     }
   },

@@ -3,19 +3,19 @@
     Filtros
   </div>
   <div cdkDropListGroup class="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
-    @for (entrie of framesMap.entries(); track entrie[0]) {
+    @for (entry of framesMap.entries(); track entry[0]) {
       <div>
         <div class="flex flex-col space-y-1.5 p-4">
           <h3 class="tracking-tight text-sm font-medium text-black">
-            {{entrie[1].title}} ({{entrie[1].orders.length}})
+            {{entry[1].title}} ({{entry[1].orders.length}})
           </h3>
         </div>
         <section 
           cdkDropList
-          [cdkDropListData]="entrie[1].orders"
+          [cdkDropListData]="entry[1].orders"
           (cdkDropListDropped)="drop($event)"
-          [id]="entrie[0]"
-          [attr.data-empty]="entrie[1].orders.length == 0"
+          [id]="entry[0]"
+          [attr.data-empty]="entry[1].orders.length == 0"
           class="
             frame
             space-y-3 sm:max-h-[calc(100vh-14.9rem)] lg:h-[calc(100vh-14.9rem)] 
@@ -23,7 +23,7 @@
             bg-transparent
           "
         >
-          @if(entrie[1].orders.length == 0){
+          @if(entry[1].orders.length == 0){
             <div 
               class="
                 overflow-hidden bg-transparent  rounded-md
@@ -34,7 +34,7 @@
               <ng-icon [size]="'30px'" name="lucideSquareDashedMousePointer" />
             </div>
           }
-          @for (data of entrie[1].orders; track data.id) {
+          @for (data of entry[1].orders; track data.id) {
             <div cdkDrag class="overflow-hidden bg-transparent shadow-md rounded-md transition-transform ease-linear cursor-grab active:cursor-grabbing"  >
               <app-order-card [data]="data" />
             </div>
